@@ -1,0 +1,81 @@
+<h1>Jumia Pay Exercise</h1>
+<p>By: Amr Ali Eissa</p>
+<p-table
+  #dt
+  [value]="phoneNumbers"
+  dataKey="id"
+  styleClass="p-datatable-customers"
+  [rowHover]="true"
+  [rows]="10"
+  [showCurrentPageReport]="true"
+  [rowsPerPageOptions]="[10, 25, 50]"
+  [loading]="loading"
+  [paginator]="true"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [filterDelay]="0"
+  [globalFilterFields]="['country', 'state']"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="country">
+        Country <p-sortIcon field="country"></p-sortIcon>
+      </th>
+      <th pSortableColumn="state">
+        State <p-sortIcon field="state"></p-sortIcon>
+      </th>
+      <th pSortableColumn="code">
+        Code <p-sortIcon field="code"></p-sortIcon>
+      </th>
+      <th pSortableColumn="number">
+        Number <p-sortIcon field="number"></p-sortIcon>
+      </th>
+    </tr>
+    <tr>
+      <th>
+        <input
+          pInputText
+          type="text"
+          (input)="dt.filter($any($event.target).value, 'country', 'startsWith')"
+          placeholder="Filter by Country"
+          class="p-column-filter"
+        />
+      </th>
+      <th>
+        <input
+          pInputText
+          type="text"
+          (input)="dt.filter($any($event.target).value, 'state', 'startsWith')"
+          placeholder="Filter by State"
+          class="p-column-filter"
+        />
+      </th>
+      <th></th>
+      <th></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-phoneNumber>
+    <tr class="p-selectable-row">
+      <td>
+        <span class="p-column-title">Country</span>
+        {{ phoneNumber.country }}
+      </td>
+      <td>
+        <span class="p-column-title">State</span>
+        <span class="image-text">{{ phoneNumber.state }}</span>
+      </td>
+      <td>
+        <span class="p-column-title">Code</span>
+        <span class="image-text">{{ phoneNumber.code }}</span>
+      </td>
+      <td>
+        <span class="p-column-title">Number</span>
+        {{ phoneNumber.number }}
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="8">No phone numbers found.</td>
+    </tr>
+  </ng-template>
+</p-table>
